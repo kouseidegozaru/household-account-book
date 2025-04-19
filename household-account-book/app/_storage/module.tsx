@@ -17,3 +17,9 @@ function useLocalStorage<T>(key: string) {
         },
     };
 }
+
+function useTableStorage<T>() {
+    return useLocalStorage<T>('tableData');
+}
+
+export { useTableStorage };
