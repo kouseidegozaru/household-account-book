@@ -37,4 +37,4 @@ function useStorage(){
     return { tableData, addRecord, removeRecord, updateRecord };
 }
 
-export { useStorage };
+export type { useStorage , TableStorage, TableRecord, Cycle };
