@@ -1,6 +1,11 @@
-import { DisplayField } from "./types";
 import { TableRecord, Cycle } from "../_storage/handler";
 
+type DisplayField = {
+    id: string;
+    title: string;
+    amount: number;
+    createdAt: Date;
+}
 type CalculateCase = (record : TableRecord) => DisplayField;
 
 function calculateDisplayField(
@@ -30,3 +35,4 @@ function calculateDisplayField(
 }
 
 export default calculateDisplayField;
+export type { DisplayField };

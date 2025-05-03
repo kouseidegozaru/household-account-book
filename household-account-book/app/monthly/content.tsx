@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react"
-import { DisplayField } from "../_calculate/types"
+import { DisplayField } from "../_calculate/devide";
 import { useStorage } from "../_storage/handler"
 import asMonthly from "../_calculate/asMonthly"
 
