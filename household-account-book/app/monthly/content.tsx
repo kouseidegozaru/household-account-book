@@ -18,9 +18,9 @@ export default function MonthlyContent() {
     return(
         <div>
             <div>
-                {displayTable.reduce((acc, record) => {
+                {Math.ceil(displayTable.reduce((acc, record) => {
                     return acc + record.amount
-                }, 0)}
+                }, 0))}
             </div>
             <table>
                 <thead>
@@ -33,7 +33,7 @@ export default function MonthlyContent() {
                     {displayTable.map((record) => (
                         <tr key={record.id}>
                             <td>{record.title}</td>
-                            <td>{record.amount}</td>
+                            <td>{Math.ceil(record.amount)}</td>
                         </tr>
                     ))}
                 </tbody>
