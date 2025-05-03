@@ -1,10 +1,10 @@
 import { DisplayField } from "./types";
-import { TableRecord , TableStorage } from "../_storage/handler";
+import { TableRecord } from "../_storage/handler";
 
 type CalculateCase = (record : TableRecord) => DisplayField;
 
 function calculateDisplayField(
-    dataTable : TableStorage, 
+    dataTable : TableRecord[], 
     whenDaily : CalculateCase,
     whenWeekly : CalculateCase,
     whenMonthly : CalculateCase,

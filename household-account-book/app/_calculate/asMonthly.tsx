@@ -1,8 +1,8 @@
 import calculateDisplayField from "./devide";
 import { DisplayField } from "./types";
-import { TableRecord, TableStorage } from "../_storage/handler";
+import { TableRecord } from "../_storage/handler";
 
-function asMonthly(dataTable: TableStorage): DisplayField[] {
+function asMonthly(dataTable: TableRecord[]): DisplayField[] {
     // 今月の日数を計算
     const now = new Date();
     const thisMonthDaysCount = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
