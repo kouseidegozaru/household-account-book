@@ -12,11 +12,9 @@ type TableRecord = {
     createdAt: Date;
 }
 
-type TableStorage = TableRecord[] | null;
-
 function useStorage(){
-    const { get, set } = useTableStorage<TableStorage>();
-    const [tableData, setTableData] = useState<TableStorage>(get() || []);
+    const { get, set } = useTableStorage<TableRecord[]>();
+    const [tableData, setTableData] = useState<TableRecord[]>(get() || []);
 
     useEffect(() => {
         set(tableData)
@@ -37,4 +35,5 @@ function useStorage(){
     return { tableData, addRecord, removeRecord, updateRecord };
 }
 
-export type { useStorage , TableStorage, TableRecord, Cycle };
+export { useStorage };
+export type { TableRecord, Cycle };

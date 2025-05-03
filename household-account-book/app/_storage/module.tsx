@@ -1,4 +1,10 @@
 function useLocalStorage<T>(key: string) {
+    if (typeof window === 'undefined') {
+        return {
+            get: () => null,
+            set: () => {},
+        };
+    }
     return {
         get: () => {
         const value = localStorage.getItem(key);
