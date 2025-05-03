@@ -1,7 +1,12 @@
 import { useTableStorage } from "./module";
 import { useState , useEffect } from "react";
 
-type Cycle = 'daily' | 'weekly' | 'monthly' | 'yearly';
+enum Cycle {
+    Daily="Daily",
+    Weekly="Weekly",
+    Monthly="Monthly",
+    Yearly="Yearly",
+}
 
 type TableRecord = {
     id: string;
@@ -43,5 +48,5 @@ function useStorage() {
     return { tableData, addRecord, removeRecord, updateRecord };
 }
 
-export { useStorage };
-export type { TableRecord, Cycle };
+export { useStorage, Cycle };
+export type { TableRecord };
