@@ -1,0 +1,43 @@
+'use client'
+
+import { useState, useEffect } from "react"
+import { DisplayField } from "../_calculate/types"
+import { useStorage } from "../_storage/handler"
+import asMonthly from "../_calculate/asMonthly"
+
+export default function MonthlyContent() {
+    const [displayTable, setDisplayTable] = useState<DisplayField[]>([])
+    const { tableData } = useStorage()
+
+    useEffect(() => {
+        const displayTable = asMonthly(tableData)
+        displayTable.sort((a, b) =>  b.createdAt.getTime() - a.createdAt.getTime())
+        setDisplayTable(displayTable)
+    }, [tableData])
+
+    return(
+        <div>
+            <div>
+                {displayTable.reduce((acc, record) => {
+                    return acc + record.amount
+                }, 0)}
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>title</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {displayTable.map((record) => (
+                        <tr key={record.id}>
+                            <td>{record.title}</td>
+                            <td>{record.amount}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+}
