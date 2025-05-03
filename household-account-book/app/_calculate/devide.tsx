@@ -4,6 +4,9 @@ type DisplayField = {
     id: string;
     title: string;
     amount: number;
+    finalAmount: number;
+    cycle: Cycle;
+    cycleNumber: number;
     createdAt: Date;
 }
 type CalculateCase = (record : TableRecord) => DisplayField;

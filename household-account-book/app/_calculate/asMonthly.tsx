@@ -12,6 +12,9 @@ function asMonthly(dataTable: TableRecord[]): DisplayField[] {
             id: record.id,
             title: record.title,
             amount: amount,
+            finalAmount: record.amount,
+            cycle: record.cycle,
+            cycleNumber: record.cycleNumber,
             createdAt: record.createdAt,
         };
     }
