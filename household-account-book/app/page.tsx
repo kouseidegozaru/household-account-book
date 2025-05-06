@@ -35,20 +35,20 @@ export default function Tabs() {
   };
 
   return (
-    <div className="w-full h-auto">
-      <div>
-        <h1 className="text-2xl font-bold text-center my-4">出費計算</h1>
-        <p className="text-center text-gray-600">定期的な出費を月単位で計算出来ます。</p>
+    <div className="w-full h-auto bg-background">
+      <div className="w-full mt-4 ml-2">
+        <p className='text-sm font-bold text-primary'>Calculate expenses</p>
+        <h1 className="text-3xl font-bold text-secondary">出費予定計算</h1>
       </div>
-      <div className="flex border-b mt-4">
+      <div className="flex mt-4 mx-4 bg-tertiary rounded-lg overflow-hidden">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => handleTabClick(tab)}
-            className={`px-4 py-2 text-sm font-medium ${
+            className={`text-secondary font-bold ml-4 my-3 px-4 py-1 rounded-lg text-sm font-medium ${
               activeTab.id === tab.id
-                ? 'border-b-2 border-primary text-primary font-bold'
-                : 'text-gray-500 hover:text-gray-700'
+                ? 'bg-base'
+                : 'hover:text-base'
             }`}
           >
             {tab.label}
