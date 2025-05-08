@@ -92,46 +92,32 @@ export default function MonthlyContent() {
                     />
                 </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>title</th>
-                        <th>Amount</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td colSpan={2}>
-                            <p>支出</p>
-                            <hr />
-                        </td>
-                    </tr>
-                </tbody>
-                <tbody>
+                <div className=" mt-5 w-full">
+                    <div className="flex justify-between mx-3 border-b border-b-border-default">
+                        <p className="text-text-default font-bold text-sm">支出予定</p>
+                        <p className="text-text-default font-bold text-sm mr-2">¥{amountTotal(getExpensesItems(displayTable)).toLocaleString()}</p>
+                    </div>
                     {getExpensesItems(displayTable).map((record) => (
-                        <tr key={record.id}>
-                            <td>{record.title}</td>
-                            <td>{Math.ceil(record.amount)}</td>
-                        </tr>
+                        <div key={record.id} className="flex justify-between items-center ml-4 mr-5 mt-2 mb-2">
+                            <p className="text-text-primary">{record.title}</p>
+                            <p className="text-text-primary">¥{Math.ceil(record.amount).toLocaleString()}</p>
+                        </div>
                     ))}
-                </tbody>
-                <tbody>
-                    <tr>
-                        <td colSpan={2}>
-                            <p>積み立て</p>
-                            <hr />
-                        </td>
-                    </tr>
-                </tbody>
-                <tbody>
+                </div>
+
+                <div className=" mt-7 w-full">
+                    <div className="flex justify-between mx-3 border-b border-b-border-default">
+                        <p className="text-text-default font-bold text-sm">積立予定</p>
+                        <p className="text-text-default font-bold text-sm mr-2">¥{amountTotal(getSavingsItems(displayTable)).toLocaleString()}</p>
+                    </div>
                     {getSavingsItems(displayTable).map((record) => (
-                        <tr key={record.id}>
-                            <td>{record.title}</td>
-                            <td>{Math.ceil(record.amount)}</td>
-                        </tr>
+                        <div key={record.id} className="flex justify-between items-center ml-4 mr-5 mt-2 mb-2">
+                            <p className="text-text-primary">{record.title}</p>
+                            <p className="text-text-primary">¥{Math.ceil(record.amount).toLocaleString()}</p>
+                        </div>
                     ))}
-                </tbody>
-            </table>
+                </div>
+
         </div>
     );
 }
