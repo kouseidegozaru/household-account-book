@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @theme{
-    --color-primary: #D89323;
+    --color-primary: #54AEFF;
     --color-text-default: #000000;
     --color-text-primary: #59636E;
     --color-bg-default: #FFFFFF;
     --color-bg-primary: #F6F8FA;
     --color-border-default: #D1D9E0;
-    --color-hover-text: rgb(9,105,218);
+    --color-hover-text: rgb(9, 105, 218);
     --color-hover-bg: rgb(129, 159, 132, 0.1);
 }
