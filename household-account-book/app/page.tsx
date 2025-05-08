@@ -1,6 +1,7 @@
 'use client';
 
 import { JSX, useState } from 'react';
+import Image from 'next/image';
 
 export type Tab = {
   id: string;
@@ -38,9 +39,15 @@ export default function Tabs() {
     <div className="w-full h-full bg-bg-default">
 
       <header className="w-full h-auto sticky top-0 bg-bg-primary border-b border-b-border-default">
-        <div className="pt-3 pb-1 pl-2">
-          <p className='text-sm font-bold text-text-default'>Calculate expenses</p>
-          <p className="text-2xl font-bold text-secondary">出費予定計算</p>
+        <div className="pt-3 pb-1 pl-2 flex">
+          <Image
+            src="/logo.svg"
+            alt="Logo"
+            width={30}
+            height={30}
+            className="rounded-full fill-primary mr-1"
+          />
+          <p className="text-1xl font-bold text-secondary">CalculateExpenses</p>
         </div>
       </header>
 
