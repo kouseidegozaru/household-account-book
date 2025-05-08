@@ -47,11 +47,11 @@ export default function Tabs() {
             height={30}
             className="rounded-full fill-primary mr-1"
           />
-          <p className="text-1xl font-bold text-secondary">CalculateExpenses</p>
+          <p className="text-1xl font-bold">CalculateExpenses</p>
         </div>
       </header>
 
-      <div className="w-full overflow-y-auto">
+      <div className="w-full">
         {tabs.map((tab) => (
           <div
             key={tab.id}
