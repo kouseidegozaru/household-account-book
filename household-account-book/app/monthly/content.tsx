@@ -35,8 +35,11 @@ export default function MonthlyContent() {
 
     return(
         <div>
-            <div>
-                {amountTotal(displayTable)}
+            
+            <div className="border-y border-y-border-default mx-9 text-center mt-4"> 
+                <p className="font-bold text-text-primary text-sm mt-4">合計</p>
+                <p className="text-3xl font-bold">¥{amountTotal(displayTable).toLocaleString()}</p>
+                <p className="text-sm mb-4 mt-1 text-text-primary">{new Date().getFullYear()}年 {new Date().getMonth() + 1}月</p>
             </div>
             <table>
                 <thead>
