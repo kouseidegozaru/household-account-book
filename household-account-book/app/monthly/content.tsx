@@ -49,48 +49,48 @@ export default function MonthlyContent() {
 
     return(
         <div>
-            
-            <div className="border-y border-y-border-default mx-9 text-center mt-4"> 
-                <p className="font-bold text-text-primary text-sm mt-4">合計</p>
-                <p className="text-3xl font-bold">¥{amountTotal(displayTable).toLocaleString()}</p>
-                <p className="text-sm mb-4 mt-1 text-text-primary">{new Date().getFullYear()}年 {new Date().getMonth() + 1}月</p>
-            </div>
 
-            <div className="mx-9 mt-4 mb-4">
-                <Pie
-                    data={{
-                        labels: ['日毎', '週毎', '月毎', '年毎'],
-                        datasets: [
-                            {
-                                label: 'Cycle',
-                                data: [
-                                    amountTotal(getDailyItems(displayTable)),
-                                    amountTotal(getWeeklyItems(displayTable)),
-                                    amountTotal(getMonthlyItems(displayTable)),
-                                    amountTotal(getYearlyItems(displayTable))
-                                ],
-                                backgroundColor: ['#004F46', '#047C72', '#4BACA0', '#7FDED1'],
+                <div className="border-y border-y-border-default mx-9 text-center mt-4"> 
+                    <p className="font-bold text-text-primary text-sm mt-4">合計</p>
+                    <p className="text-3xl font-bold">¥{amountTotal(displayTable).toLocaleString()}</p>
+                    <p className="text-sm mb-4 mt-1 text-text-primary">{new Date().getFullYear()}年 {new Date().getMonth() + 1}月</p>
+                </div>
+
+                <div className="mx-9 mt-4 mb-4 flex justify-center items-center">
+                    <Pie
+                        data={{
+                            labels: ['日毎', '週毎', '月毎', '年毎'],
+                            datasets: [
+                                {
+                                    label: 'Cycle',
+                                    data: [
+                                        amountTotal(getDailyItems(displayTable)),
+                                        amountTotal(getWeeklyItems(displayTable)),
+                                        amountTotal(getMonthlyItems(displayTable)),
+                                        amountTotal(getYearlyItems(displayTable))
+                                    ],
+                                    backgroundColor: ['#004F46', '#047C72', '#4BACA0', '#7FDED1'],
+                                },
+                            ],
+                        }}
+                        options={{
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Cycle',
+                                },
+                                datalabels: {
+                                    color: '#fff',
+                                    formatter: (value, context) => { return '¥' + value.toLocaleString() },
+                                },
                             },
-                        ],
-                    }}
-                    options={{
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                position: 'top',
-                            },
-                            title: {
-                                display: true,
-                                text: 'Cycle',
-                            },
-                            datalabels: {
-                                color: '#fff',
-                                formatter: (value, context) => { return '¥' + value.toLocaleString() },
-                            },
-                        },
-                    }}
-                />
-            </div>
+                        }}
+                    />
+                </div>
 
             <table>
                 <thead>
