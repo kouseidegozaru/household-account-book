@@ -2,6 +2,7 @@
 
 import { JSX, useState } from 'react';
 import Image from 'next/image';
+import MonthlyContent from './monthly/content';
 
 export type Tab = {
   id: string;
@@ -11,10 +12,11 @@ export type Tab = {
 };
 
 const tabs: Tab[] = [
-  {id: 'tab1', 
-    label: 'タブ1', 
-    content: 'タブ1の内容',
-    onActivate: () => {console.log('タブ1がアクティブになりました');}
+  {
+    id: 'monthly', 
+    label: <Image src="/calendar.svg" alt="Monthly" width={20} height={20}/>, 
+    content: <MonthlyContent />,
+    onActivate: () => {}
   },
   { 
     id: 'tab2', 
@@ -65,17 +67,14 @@ export default function Tabs() {
       <footer className="w-full fixed bottom-0 bg-bg-primary border-t border-t-border-default">
         <div className="w-full justify-around flex">
           {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => handleTabClick(tab)}
-              className={`hover:bg-hover-bg font-bold ml-4 my-3 px-4 py-1 rounded-lg text-sm ${
-                activeTab.id === tab.id
-                  ? 'text-hover-text'
-                  : 'text-text-primary '
-              }`}
-            >
-              {tab.label}
-            </button>
+            <div className={`flex items-center justify-center ${activeTab.id === tab.id ? 'border-b-3 border-b-primary' : ''}`} key={tab.id}>
+              <button
+                key={tab.id}
+                onClick={() => handleTabClick(tab)}
+                className={`hover:bg-hover-bg text-text-primary font-bold my-2 px-4 py-1 rounded-lg text-sm}`}>
+                {tab.label}
+              </button>
+            </div>
           ))}
         </div>
       </footer>
