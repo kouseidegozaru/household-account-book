@@ -13,6 +13,7 @@ Chart.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 export default function MonthlyContent() {
     const [displayTable, setDisplayTable] = useState<DisplayField[]>([])
+    const [ animatedTotal, setAnimatedTotal ] = useState<number>(0)
     const { tableData } = useStorage()
 
     useEffect(() => {
@@ -23,6 +24,33 @@ export default function MonthlyContent() {
         setDisplayTable(displayTable)
 
     }, [tableData])
+
+    useEffect(() => {
+        // カウントアップアニメーションを開始
+        countUpTotal()
+    },[displayTable])
+
+
+    //合計をカウントアップ
+    const countUpTotal = () => {
+        // 合計値をカウントアップ
+        const total = amountTotal(displayTable);
+        let start = 0;
+        const duration = 2000; // 2秒
+        const increment = total / (duration / 16); // 16msごとに増加
+
+        const animate = () => {
+            start += increment;
+            if (start >= total) {
+                setAnimatedTotal(total); // 最終値を設定
+            } else {
+                setAnimatedTotal(Math.ceil(start));
+                requestAnimationFrame(animate);
+            }
+        };
+        
+        animate();
+    }
 
     // 日毎
     const getDailyItems = (displayTable : DisplayField[]) => displayTable.filter((record) => record.cycle === Cycle.Daily)
@@ -52,7 +80,7 @@ export default function MonthlyContent() {
 
                 <div className="border-y border-y-border-default mx-9 text-center mt-4"> 
                     <p className="font-bold text-text-primary text-sm mt-4">合計</p>
-                    <p className="text-3xl font-bold">¥{amountTotal(displayTable).toLocaleString()}</p>
+                    <p className="text-3xl font-bold">¥{animatedTotal.toLocaleString()}</p>
                     <p className="text-sm mb-4 mt-1 text-text-primary">{new Date().getFullYear()}年 {new Date().getMonth() + 1}月</p>
                 </div>
 
