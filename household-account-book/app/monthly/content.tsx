@@ -36,7 +36,7 @@ export default function MonthlyContent() {
         // 合計値をカウントアップ
         const total = amountTotal(displayTable);
         let start = 0;
-        const duration = 2000; // 2秒
+        const duration = 700; // 0.7秒
         const increment = total / (duration / 16); // 16msごとに増加
 
         const animate = () => {
@@ -116,6 +116,9 @@ export default function MonthlyContent() {
                                     formatter: (value, context) => { return '¥' + value.toLocaleString() },
                                 },
                             },
+                            animation: {
+                                duration: 700,
+                            }
                         }}
                     />
                 </div>
