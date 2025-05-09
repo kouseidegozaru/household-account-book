@@ -36,7 +36,7 @@ export default function Tabs() {
   };
 
   return (
-    <div className="w-full h-full bg-bg-default">
+    <div className="w-full flex flex-col min-h-screen bg-bg-default">
 
       <header className="w-full h-auto sticky top-0 bg-bg-primary border-b border-b-border-default">
         <div className="pt-3 pb-1 pl-2 flex">
@@ -51,7 +51,7 @@ export default function Tabs() {
         </div>
       </header>
 
-      <div className="w-full">
+      <main className="flex-1 overflow-y-auto p-4 pb-16">
         {tabs.map((tab) => (
           <div
             key={tab.id}
@@ -60,7 +60,7 @@ export default function Tabs() {
             {tab.content}
           </div>
         ))}
-      </div>
+      </main>
 
       <footer className="w-full fixed bottom-0 bg-bg-primary border-t border-t-border-default">
         <div className="w-full justify-around flex">
