@@ -4,11 +4,14 @@ import { useState, useEffect } from 'react';
 import { useStorage, Cycle } from '../_storage/handler';
 import { TableRecord } from '../_storage/handler';
 import RegisterModal from './registerModal';
+import EditModal from './editModal';
 
 export default function RegisterContent() {
     const [ isShowRegisterModal, setShowRegisterModal ] = useState(false);
+    const [ isShowEditModal, setShowEditModal ] = useState(false);
     const [ displayData, setDisplayData ] = useState<TableRecord[]>([]);
     const [activeMenuIndex, setActiveMenuIndex] = useState<number | null>(null);
+    const [editingRecord, setEditingRecord] = useState<TableRecord | null>(null);
     const { tableData, addRecord, removeRecord, updateRecord } = useStorage();
 
     useEffect(() => {
@@ -29,9 +32,17 @@ export default function RegisterContent() {
                 return '';
         }
     };
+
     const handleMenuToggle = (index: number) => {
         setActiveMenuIndex(activeMenuIndex === index ? null : index);
     };
+
+    const handleEdit = (item: TableRecord) => {
+        setEditingRecord(item);
+        setShowEditModal(true);
+        setActiveMenuIndex(null);
+    };
+
     const handleDelete = (item : TableRecord) => {
         removeRecord(item.id);
         setActiveMenuIndex(null);
@@ -42,6 +53,11 @@ export default function RegisterContent() {
             {isShowRegisterModal && (
                 <RegisterModal setShowRegisterModal={setShowRegisterModal} addRecord={addRecord} />
             )}
+            {isShowEditModal && editingRecord && (
+                <EditModal setShowEditModal={setShowEditModal} updateRecord={updateRecord} record={editingRecord}/>
+            )}
+            
+            {/* Header */}
             <div className="flex justify-between items-center border-b border-b-border-default py-2">
                 <p className="text-lg font-bold">出費計画</p>
                 <button 
@@ -77,7 +93,7 @@ export default function RegisterContent() {
                             {activeMenuIndex === index && (
                                 <div className="absolute right-0 mt-2 w-32 bg-bg-default border border-border-default rounded shadow-md z-5">
                                     <button 
-                                        onClick={() => {}} 
+                                        onClick={() => handleEdit(item)} 
                                         className="block w-full text-left px-4 py-2 text-sm hover:bg-hover-bg">
                                         編集
                                     </button>
