@@ -49,7 +49,7 @@ export default function MonthlyContent() {
     useEffect(() => {
         // カウントアップアニメーションを開始
         countUpTotal()
-    },[displayTable, countUpTotal])
+    },[displayTable])
 
 
     // 日毎
