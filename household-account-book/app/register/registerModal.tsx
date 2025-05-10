@@ -67,7 +67,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ setShowRegisterModal, add
                 </div>
 
                 <div className='m-5'>
-                    <p className="ml-2 text-sm text-text-primary">出費名</p>
+                    <p className="ml-2 mt-4 text-sm text-text-primary">出費名</p>
                     <input
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
@@ -75,7 +75,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ setShowRegisterModal, add
                     />
                     {errors.title && <p className='text-red-500 text-xs'>{errors.title}</p>}
 
-                    <p className="ml-2 text-sm text-text-primary">出費額</p>
+                    <p className="ml-2 mt-4 text-sm text-text-primary">出費額</p>
                     <input
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}
@@ -83,7 +83,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ setShowRegisterModal, add
                     />
                     {errors.amount && <p className='text-red-500 text-xs'>{errors.amount}</p>}
 
-                    <p className="ml-2 text-sm text-text-primary">サイクル</p>
+                    <p className="ml-2 mt-4 text-sm text-text-primary">サイクル</p>
                     <div className="flex gap-2">
                         <input
                             value={cycleNumber}
