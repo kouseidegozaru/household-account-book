@@ -4,7 +4,7 @@ import { TableRecord } from '../_storage/handler';
 
 interface EditModalProps {
     setShowEditModal: React.Dispatch<React.SetStateAction<boolean>>;
-    updateRecord: any;
+    updateRecord: (record: TableRecord) => void;
     record: TableRecord;
 }
 
@@ -27,7 +27,7 @@ const EditModal: React.FC<EditModalProps> = ({ setShowEditModal, updateRecord, r
 
     const [title, setTitle] = useState(record.title);
     const [amount, setAmount] = useState(record.amount.toString());
-    const [cycle, setCycle] = useState<Cycle | ''>(record.cycle);
+    const [cycle, setCycle] = useState<Cycle>(record.cycle);
     const [cycleNumber, setCycleNumber] = useState(record.cycleNumber.toString());
     const [errors, setErrors] = useState<{ title?: string; amount?: string; cycleNumber?: string }>({});
 
@@ -72,6 +72,7 @@ const EditModal: React.FC<EditModalProps> = ({ setShowEditModal, updateRecord, r
                     <p className="ml-2 mt-4 text-sm text-text-primary">出費名</p>
                     <input
                         value={title}
+                        placeholder='出費名を入力してください。'
                         onChange={(e) => setTitle(e.target.value)}
                         className={`w-full h-10 border ${errors.title ? 'border-red-500' : 'border-border-default'} rounded-lg mt-1 px-2 mb-1`}
                     />
@@ -80,6 +81,7 @@ const EditModal: React.FC<EditModalProps> = ({ setShowEditModal, updateRecord, r
                     <p className="ml-2 mt-4 text-sm text-text-primary">出費額</p>
                     <input
                         value={amount}
+                        placeholder='出費額を入力してください。'
                         onChange={(e) => setAmount(e.target.value)}
                         className={`w-full h-10 border ${errors.amount ? 'border-red-500' : 'border-border-default'} rounded-lg mt-1 px-2 mb-1`}
                     />
@@ -89,6 +91,7 @@ const EditModal: React.FC<EditModalProps> = ({ setShowEditModal, updateRecord, r
                     <div className="flex gap-2">
                         <input
                             value={cycleNumber}
+                            placeholder='サイクル数を入力してください。'
                             onChange={(e) => setCycleNumber(e.target.value)}
                             className={`w-full h-10 border ${errors.cycleNumber ? 'border-red-500' : 'border-border-default'} rounded-lg mt-1 px-2 mb-1`}
                         />
@@ -96,6 +99,7 @@ const EditModal: React.FC<EditModalProps> = ({ setShowEditModal, updateRecord, r
                             value={cycle}
                             onChange={(e) => setCycle(e.target.value as Cycle)}
                             className={`w-full h-10 border border-border-default rounded-lg mt-1 px-2 mb-1`}
+                            aria-label="サイクル選択"
                         >
                             {Object.values(Cycle).map((cycle) => (
                                 <option key={cycle} value={cycle}>

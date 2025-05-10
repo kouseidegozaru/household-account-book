@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Cycle } from '../_storage/handler';
+import { TableRecord } from '../_storage/handler';
 
 interface RegisterModalProps {
     setShowRegisterModal: React.Dispatch<React.SetStateAction<boolean>>;
-    addRecord: any;
+    addRecord: (record: TableRecord) => void;
 }
 
 const cycleToDisplay = (cycle: Cycle) => {
@@ -25,7 +26,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ setShowRegisterModal, add
 
     const [title, setTitle] = useState('');
     const [amount, setAmount] = useState('');
-    const [cycle, setCycle] = useState<Cycle | ''>(Cycle.Daily);
+    const [cycle, setCycle] = useState<Cycle>(Cycle.Daily);
     const [cycleNumber, setCycleNumber] = useState('');
     const [errors, setErrors] = useState<{ title?: string; amount?: string; cycleNumber?: string }>({});
 
@@ -71,6 +72,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ setShowRegisterModal, add
                     <input
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
+                        placeholder="出費名を入力してください。"
                         className={`w-full h-10 border ${errors.title ? 'border-red-500' : 'border-border-default'} rounded-lg mt-1 px-2 mb-1`}
                     />
                     {errors.title && <p className='text-red-500 text-xs'>{errors.title}</p>}
@@ -79,6 +81,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ setShowRegisterModal, add
                     <input
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}
+                        placeholder="出費額を入力してください。"
                         className={`w-full h-10 border ${errors.amount ? 'border-red-500' : 'border-border-default'} rounded-lg mt-1 px-2 mb-1`}
                     />
                     {errors.amount && <p className='text-red-500 text-xs'>{errors.amount}</p>}
@@ -88,9 +91,12 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ setShowRegisterModal, add
                         <input
                             value={cycleNumber}
                             onChange={(e) => setCycleNumber(e.target.value)}
+                            placeholder="サイクル数を入力してください。"
                             className={`w-full h-10 border ${errors.cycleNumber ? 'border-red-500' : 'border-border-default'} rounded-lg mt-1 px-2 mb-1`}
                         />
+                        <label htmlFor="cycle-select" className="sr-only">サイクルを選択してください</label>
                         <select
+                            id="cycle-select"
                             value={cycle}
                             onChange={(e) => setCycle(e.target.value as Cycle)}
                             className={`w-full h-10 border border-border-default rounded-lg mt-1 px-2 mb-1`}

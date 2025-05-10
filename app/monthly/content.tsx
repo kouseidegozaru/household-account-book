@@ -16,21 +16,6 @@ export default function MonthlyContent() {
     const [ animatedTotal, setAnimatedTotal ] = useState<number>(0)
     const { tableData, reload } = useStorage()
 
-    useEffect(() => {
-
-        //表示用のテーブルを作成
-        const displayTable = asMonthly(tableData)
-        displayTable.sort((a, b) =>  b.createdAt.getTime() - a.createdAt.getTime())
-        setDisplayTable(displayTable)
-
-    }, [tableData])
-
-    useEffect(() => {
-        // カウントアップアニメーションを開始
-        countUpTotal()
-    },[displayTable])
-
-
     //合計をカウントアップ
     const countUpTotal = () => {
         // 合計値をカウントアップ
@@ -51,6 +36,21 @@ export default function MonthlyContent() {
         
         animate();
     }
+    
+    useEffect(() => {
+
+        //表示用のテーブルを作成
+        const displayTable = asMonthly(tableData)
+        displayTable.sort((a, b) =>  b.createdAt.getTime() - a.createdAt.getTime())
+        setDisplayTable(displayTable)
+
+    }, [tableData])
+
+    useEffect(() => {
+        // カウントアップアニメーションを開始
+        countUpTotal()
+    },[displayTable, countUpTotal])
+
 
     // 日毎
     const getDailyItems = (displayTable : DisplayField[]) => displayTable.filter((record) => record.cycle === Cycle.Daily)
@@ -113,7 +113,7 @@ export default function MonthlyContent() {
                                 },
                                 datalabels: {
                                     color: '#fff',
-                                    formatter: (value, context) => { return '¥' + value.toLocaleString() },
+                                    formatter: (value : number) => { return '¥' + value.toLocaleString() },
                                 },
                             },
                             animation: {
