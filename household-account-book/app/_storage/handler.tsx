@@ -40,6 +40,10 @@ function useStorage() {
         set(table);
     }
 
+    function reload() {
+        load();
+    }
+
     function addRecord(record: TableRecord) {
         apply([...(tableData || []), record]);
     }
@@ -52,7 +56,7 @@ function useStorage() {
         apply((tableData || []).map(r => r.id === record.id ? record : r));
     }
 
-    return { tableData, addRecord, removeRecord, updateRecord };
+    return { reload, tableData, addRecord, removeRecord, updateRecord };
 }
 
 export { useStorage, Cycle };
