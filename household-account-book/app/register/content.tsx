@@ -8,7 +8,7 @@ import RegisterModal from './registerModal';
 export default function RegisterContent() {
     const [ isShowRegisterModal, setShowRegisterModal ] = useState(false);
     const [ displayData, setDisplayData ] = useState<TableRecord[]>([]);
-    const { tableData, addRecord } = useStorage();
+    const [activeMenuIndex, setActiveMenuIndex] = useState<number | null>(null);
 
     useEffect(() => {
         setDisplayData(tableData);
@@ -27,6 +27,9 @@ export default function RegisterContent() {
             default:
                 return '';
         }
+    };
+    const handleMenuToggle = (index: number) => {
+        setActiveMenuIndex(activeMenuIndex === index ? null : index);
     };
 
     return (
@@ -60,9 +63,27 @@ export default function RegisterContent() {
                             </div>
                         </div>
 
-                        <button className="text-sm font-bold text-text-primary mr-4">
+                        <div className="relative">
+                            <button 
+                                onClick={() => handleMenuToggle(index)}
+                                className="text-sm font-bold text-text-primary mr-4">
                             ・・・
                         </button>
+                            {activeMenuIndex === index && (
+                                <div className="absolute right-0 mt-2 w-32 bg-bg-default border border-border-default rounded shadow-md z-5">
+                                    <button 
+                                        onClick={() => {}} 
+                                        className="block w-full text-left px-4 py-2 text-sm hover:bg-hover-bg">
+                                        編集
+                                    </button>
+                                    <button 
+                                        onClick={() => {}} 
+                                        className="block w-full text-left px-4 py-2 text-sm hover:bg-hover-bg">
+                                        削除
+                                    </button>
+                                </div>
+                            )}
+                        </div>
 
                     </div>
                 </div>
