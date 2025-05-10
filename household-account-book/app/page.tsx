@@ -12,22 +12,26 @@ export type Tab = {
   onActivate?: () => void;
 };
 
-const tabs: Tab[] = [
-  {
-    id: 'monthly', 
-    label: <Image src="/calendar.svg" alt="Monthly" width={20} height={20}/>, 
-    content: <MonthlyContent />,
-    onActivate: () => {}
-  },
-  { 
-    id: 'edit', 
-    label: <Image src="/edit.svg" alt="Edit" width={20} height={20}/>, 
-    content: <RegisterContent />,
-    onActivate: () => {}
-  },
-];
 
 export default function Tabs() {
+  
+  const { content, reload } = MonthlyContent();
+
+  const tabs: Tab[] = [
+    {
+      id: 'monthly', 
+      label: <Image src="/calendar.svg" alt="Monthly" width={20} height={20}/>, 
+      content: content,
+      onActivate: reload
+    },
+    { 
+      id: 'edit', 
+      label: <Image src="/edit.svg" alt="Edit" width={20} height={20}/>, 
+      content: <RegisterContent />,
+      onActivate: () => {}
+    },
+  ];
+
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
   // タブのクリックイベント
