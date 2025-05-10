@@ -23,7 +23,7 @@ function useStorage() {
 
     useEffect(() => {
         load();
-    }, [load]);
+    }, []);
 
     function load() {
         const rawData = get() || [];
