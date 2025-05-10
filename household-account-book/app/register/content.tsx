@@ -9,6 +9,7 @@ export default function RegisterContent() {
     const [ isShowRegisterModal, setShowRegisterModal ] = useState(false);
     const [ displayData, setDisplayData ] = useState<TableRecord[]>([]);
     const [activeMenuIndex, setActiveMenuIndex] = useState<number | null>(null);
+    const { tableData, addRecord, removeRecord, updateRecord } = useStorage();
 
     useEffect(() => {
         setDisplayData(tableData);
@@ -30,6 +31,10 @@ export default function RegisterContent() {
     };
     const handleMenuToggle = (index: number) => {
         setActiveMenuIndex(activeMenuIndex === index ? null : index);
+    };
+    const handleDelete = (item : TableRecord) => {
+        removeRecord(item.id);
+        setActiveMenuIndex(null);
     };
 
     return (
@@ -77,7 +82,7 @@ export default function RegisterContent() {
                                         編集
                                     </button>
                                     <button 
-                                        onClick={() => {}} 
+                                        onClick={() => handleDelete(item)} 
                                         className="block w-full text-left px-4 py-2 text-sm hover:bg-hover-bg">
                                         削除
                                     </button>
