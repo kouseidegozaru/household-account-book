@@ -3,6 +3,7 @@
 import { JSX, useState } from 'react';
 import Image from 'next/image';
 import MonthlyContent from './monthly/content';
+import RegisterContent from './register/content';
 
 export type Tab = {
   id: string;
@@ -19,10 +20,10 @@ const tabs: Tab[] = [
     onActivate: () => {}
   },
   { 
-    id: 'tab2', 
-    label: 'タブ2', 
-    content: 'タブ2の内容',
-    onActivate: () => {console.log('タブ2がアクティブになりました');}
+    id: 'edit', 
+    label: <Image src="/edit.svg" alt="Edit" width={20} height={20}/>, 
+    content: <RegisterContent />,
+    onActivate: () => {}
   },
 ];
 
