@@ -19,30 +19,37 @@ type TableRecord = {
 
 function useStorage() {
     const { get, set } = useTableStorage<TableRecord[]>();
-
-    // 取得したデータをTableRecord型に変換
-    const rawData = get() || [];
-    const parsedData: TableRecord[] = rawData.map(record => ({
-        ...record,
-        createdAt: new Date(record.createdAt),
-    }));
-
-    const [tableData, setTableData] = useState<TableRecord[]>(parsedData);
+    const [tableData, setTableData] = useState<TableRecord[]>([]);
 
     useEffect(() => {
-        set(tableData);
-    }, [tableData]);
+        load();
+    }, []);
+
+    function load() {
+        const rawData = get() || [];
+        const parsedData: TableRecord[] = rawData.map(record => ({
+            ...record,
+            createdAt: new Date(record.createdAt),
+        }));
+        setTableData(parsedData);
+        console.log(tableData);
+    }
+
+    function apply(table: TableRecord[]) {
+        setTableData(table);
+        set(table);
+    }
 
     function addRecord(record: TableRecord) {
-        setTableData((prev) => [...(prev || []), record]);
+        apply([...(tableData || []), record]);
     }
 
     function removeRecord(id: string) {
-        setTableData((prev) => (prev || []).filter(record => record.id !== id));
+        apply((tableData || []).filter(record => record.id !== id));
     }
 
     function updateRecord(record: TableRecord) {
-        setTableData((prev) => (prev || []).map(r => r.id === record.id ? record : r));
+        apply((tableData || []).map(r => r.id === record.id ? record : r));
     }
 
     return { tableData, addRecord, removeRecord, updateRecord };
