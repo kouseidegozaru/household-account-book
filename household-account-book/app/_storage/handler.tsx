@@ -1,7 +1,12 @@
 import { useTableStorage } from "./module";
 import { useState , useEffect } from "react";
 
-type Cycle = 'daily' | 'weekly' | 'monthly' | 'yearly';
+enum Cycle {
+    Daily="Daily",
+    Weekly="Weekly",
+    Monthly="Monthly",
+    Yearly="Yearly",
+}
 
 type TableRecord = {
     id: string;
@@ -12,12 +17,20 @@ type TableRecord = {
     createdAt: Date;
 }
 
-function useStorage(){
+function useStorage() {
     const { get, set } = useTableStorage<TableRecord[]>();
-    const [tableData, setTableData] = useState<TableRecord[]>(get() || []);
+
+    // 取得したデータをTableRecord型に変換
+    const rawData = get() || [];
+    const parsedData: TableRecord[] = rawData.map(record => ({
+        ...record,
+        createdAt: new Date(record.createdAt),
+    }));
+
+    const [tableData, setTableData] = useState<TableRecord[]>(parsedData);
 
     useEffect(() => {
-        set(tableData)
+        set(tableData);
     }, [tableData]);
 
     function addRecord(record: TableRecord) {
@@ -35,5 +48,5 @@ function useStorage(){
     return { tableData, addRecord, removeRecord, updateRecord };
 }
 
-export { useStorage };
-export type { TableRecord, Cycle };
+export { useStorage, Cycle };
+export type { TableRecord };

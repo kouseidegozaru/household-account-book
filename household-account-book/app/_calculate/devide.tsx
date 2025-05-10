@@ -1,6 +1,14 @@
-import { DisplayField } from "./types";
-import { TableRecord } from "../_storage/handler";
+import { TableRecord, Cycle } from "../_storage/handler";
 
+type DisplayField = {
+    id: string;
+    title: string;
+    amount: number;
+    finalAmount: number;
+    cycle: Cycle;
+    cycleNumber: number;
+    createdAt: Date;
+}
 type CalculateCase = (record : TableRecord) => DisplayField;
 
 function calculateDisplayField(
@@ -15,13 +23,13 @@ function calculateDisplayField(
 
     return dataTable.map((record) => {
         switch (record.cycle) {
-            case 'daily':
+            case Cycle.Daily:
                 return whenDaily(record);
-            case 'weekly':
+            case Cycle.Weekly:
                 return whenWeekly(record);
-            case 'monthly':
+            case Cycle.Monthly:
                 return whenMonthly(record);
-            case 'yearly':
+            case Cycle.Yearly:
                 return whenYearly(record);
             default:
                 throw new Error(`Unknown cycle: ${record.cycle}`);
@@ -30,3 +38,4 @@ function calculateDisplayField(
 }
 
 export default calculateDisplayField;
+export type { DisplayField };

@@ -1,5 +1,5 @@
 import calculateDisplayField from "./devide";
-import { DisplayField } from "./types";
+import { DisplayField } from "./devide";
 import { TableRecord } from "../_storage/handler";
 
 function asMonthly(dataTable: TableRecord[]): DisplayField[] {
@@ -12,6 +12,9 @@ function asMonthly(dataTable: TableRecord[]): DisplayField[] {
             id: record.id,
             title: record.title,
             amount: amount,
+            finalAmount: record.amount,
+            cycle: record.cycle,
+            cycleNumber: record.cycleNumber,
             createdAt: record.createdAt,
         };
     }
