@@ -20,13 +20,13 @@ export default function Tabs() {
   const tabs: Tab[] = [
     {
       id: 'monthly', 
-      label: <Image src="/calendar.svg" alt="Monthly" width={20} height={20}/>, 
+      label: <Image src="./calendar.svg" alt="Monthly" width={20} height={20}/>, 
       content: content,
       onActivate: reload
     },
     { 
       id: 'edit', 
-      label: <Image src="/edit.svg" alt="Edit" width={20} height={20}/>, 
+      label: <Image src="./edit.svg" alt="Edit" width={20} height={20}/>, 
       content: <RegisterContent />,
       onActivate: () => {}
     },
@@ -48,7 +48,7 @@ export default function Tabs() {
       <header className="w-full h-auto sticky top-0 bg-bg-primary border-b border-b-border-default">
         <div className="pt-3 pb-1 pl-2 flex">
           <Image
-            src="/logo.svg"
+            src="./logo.svg"
             alt="Logo"
             width={30}
             height={30}
