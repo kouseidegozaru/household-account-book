@@ -14,7 +14,7 @@ Chart.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 export default function MonthlyContent() {
     const [displayTable, setDisplayTable] = useState<DisplayField[]>([])
     const [ animatedTotal, setAnimatedTotal ] = useState<number>(0)
-    const { tableData } = useStorage()
+    const { tableData, reload } = useStorage()
 
     useEffect(() => {
 
@@ -75,7 +75,7 @@ export default function MonthlyContent() {
         return Math.ceil(total)
     }
 
-    return(
+    const content = (
         <div>
 
                 <div className="border-y border-y-border-default mx-9 text-center mt-4"> 
@@ -151,4 +151,6 @@ export default function MonthlyContent() {
 
         </div>
     );
+
+    return { content, reload};
 }
