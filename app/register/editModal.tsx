@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Cycle } from '../_storage/handler';
+import { TableRecord } from '../_storage/handler';
 
-interface RegisterModalProps {
-    setShowRegisterModal: React.Dispatch<React.SetStateAction<boolean>>;
-    addRecord: any;
+interface EditModalProps {
+    setShowEditModal: React.Dispatch<React.SetStateAction<boolean>>;
+    updateRecord: (record: TableRecord) => void;
+    record: TableRecord;
 }
 
 const cycleToDisplay = (cycle: Cycle) => {
@@ -21,12 +23,12 @@ const cycleToDisplay = (cycle: Cycle) => {
     }
 }
 
-const RegisterModal: React.FC<RegisterModalProps> = ({ setShowRegisterModal, addRecord }) => {
+const EditModal: React.FC<EditModalProps> = ({ setShowEditModal, updateRecord, record }) => {
 
-    const [title, setTitle] = useState('');
-    const [amount, setAmount] = useState('');
-    const [cycle, setCycle] = useState<Cycle | ''>(Cycle.Daily);
-    const [cycleNumber, setCycleNumber] = useState('');
+    const [title, setTitle] = useState(record.title);
+    const [amount, setAmount] = useState(record.amount.toString());
+    const [cycle, setCycle] = useState<Cycle>(record.cycle);
+    const [cycleNumber, setCycleNumber] = useState(record.cycleNumber.toString());
     const [errors, setErrors] = useState<{ title?: string; amount?: string; cycleNumber?: string }>({});
 
     const validate = () => {
@@ -43,15 +45,15 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ setShowRegisterModal, add
     const handleSubmit = () => {
         if (!validate()) return;
 
-        addRecord({
-            id: Date.now().toString(),
+        updateRecord({
+            id: record.id,
             title,
             cycleNumber: Number(cycleNumber),
             cycle,
             amount: Number(amount),
             createdAt: new Date(),
         });
-        setShowRegisterModal(false);
+        setShowEditModal(false);
     };
 
     return (
@@ -60,7 +62,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ setShowRegisterModal, add
                 <div className='flex justify-between items-center border-b border-b-border-default'>
                     <p className="text-sm text-text-primary font-bold ml-4">追加</p>
                     <button
-                        onClick={() => setShowRegisterModal(false)}
+                        onClick={() => setShowEditModal(false)}
                         className="text-4xl font-bold text-text-primary mr-4 mb-2">
                         ×
                     </button>
@@ -70,6 +72,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ setShowRegisterModal, add
                     <p className="ml-2 mt-4 text-sm text-text-primary">出費名</p>
                     <input
                         value={title}
+                        placeholder='出費名を入力してください。'
                         onChange={(e) => setTitle(e.target.value)}
                         className={`w-full h-10 border ${errors.title ? 'border-red-500' : 'border-border-default'} rounded-lg mt-1 px-2 mb-1`}
                     />
@@ -78,6 +81,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ setShowRegisterModal, add
                     <p className="ml-2 mt-4 text-sm text-text-primary">出費額</p>
                     <input
                         value={amount}
+                        placeholder='出費額を入力してください。'
                         onChange={(e) => setAmount(e.target.value)}
                         className={`w-full h-10 border ${errors.amount ? 'border-red-500' : 'border-border-default'} rounded-lg mt-1 px-2 mb-1`}
                     />
@@ -87,6 +91,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ setShowRegisterModal, add
                     <div className="flex gap-2">
                         <input
                             value={cycleNumber}
+                            placeholder='サイクル数を入力してください。'
                             onChange={(e) => setCycleNumber(e.target.value)}
                             className={`w-full h-10 border ${errors.cycleNumber ? 'border-red-500' : 'border-border-default'} rounded-lg mt-1 px-2 mb-1`}
                         />
@@ -94,6 +99,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ setShowRegisterModal, add
                             value={cycle}
                             onChange={(e) => setCycle(e.target.value as Cycle)}
                             className={`w-full h-10 border border-border-default rounded-lg mt-1 px-2 mb-1`}
+                            aria-label="サイクル選択"
                         >
                             {Object.values(Cycle).map((cycle) => (
                                 <option key={cycle} value={cycle}>
@@ -108,7 +114,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ setShowRegisterModal, add
                         className={`w-full h-10 bg-primary text-white rounded-lg mt-4`}
                         onClick={handleSubmit}
                     >
-                        登録
+                        更新
                     </button>
                 </div>
             </div>
@@ -116,4 +122,4 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ setShowRegisterModal, add
     );
 };
 
-export default RegisterModal;
+export default EditModal;

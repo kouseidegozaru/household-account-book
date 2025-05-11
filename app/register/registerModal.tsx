@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { Cycle } from '../_storage/handler';
 import { TableRecord } from '../_storage/handler';
 
-interface EditModalProps {
-    setShowEditModal: React.Dispatch<React.SetStateAction<boolean>>;
-    updateRecord: any;
-    record: TableRecord;
+interface RegisterModalProps {
+    setShowRegisterModal: React.Dispatch<React.SetStateAction<boolean>>;
+    addRecord: (record: TableRecord) => void;
 }
 
 const cycleToDisplay = (cycle: Cycle) => {
@@ -23,12 +22,12 @@ const cycleToDisplay = (cycle: Cycle) => {
     }
 }
 
-const EditModal: React.FC<EditModalProps> = ({ setShowEditModal, updateRecord, record }) => {
+const RegisterModal: React.FC<RegisterModalProps> = ({ setShowRegisterModal, addRecord }) => {
 
-    const [title, setTitle] = useState(record.title);
-    const [amount, setAmount] = useState(record.amount.toString());
-    const [cycle, setCycle] = useState<Cycle | ''>(record.cycle);
-    const [cycleNumber, setCycleNumber] = useState(record.cycleNumber.toString());
+    const [title, setTitle] = useState('');
+    const [amount, setAmount] = useState('');
+    const [cycle, setCycle] = useState<Cycle>(Cycle.Daily);
+    const [cycleNumber, setCycleNumber] = useState('');
     const [errors, setErrors] = useState<{ title?: string; amount?: string; cycleNumber?: string }>({});
 
     const validate = () => {
@@ -45,15 +44,15 @@ const EditModal: React.FC<EditModalProps> = ({ setShowEditModal, updateRecord, r
     const handleSubmit = () => {
         if (!validate()) return;
 
-        updateRecord({
-            id: record.id,
+        addRecord({
+            id: Date.now().toString(),
             title,
             cycleNumber: Number(cycleNumber),
             cycle,
             amount: Number(amount),
             createdAt: new Date(),
         });
-        setShowEditModal(false);
+        setShowRegisterModal(false);
     };
 
     return (
@@ -62,7 +61,7 @@ const EditModal: React.FC<EditModalProps> = ({ setShowEditModal, updateRecord, r
                 <div className='flex justify-between items-center border-b border-b-border-default'>
                     <p className="text-sm text-text-primary font-bold ml-4">追加</p>
                     <button
-                        onClick={() => setShowEditModal(false)}
+                        onClick={() => setShowRegisterModal(false)}
                         className="text-4xl font-bold text-text-primary mr-4 mb-2">
                         ×
                     </button>
@@ -73,6 +72,7 @@ const EditModal: React.FC<EditModalProps> = ({ setShowEditModal, updateRecord, r
                     <input
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
+                        placeholder="出費名を入力してください。"
                         className={`w-full h-10 border ${errors.title ? 'border-red-500' : 'border-border-default'} rounded-lg mt-1 px-2 mb-1`}
                     />
                     {errors.title && <p className='text-red-500 text-xs'>{errors.title}</p>}
@@ -81,6 +81,7 @@ const EditModal: React.FC<EditModalProps> = ({ setShowEditModal, updateRecord, r
                     <input
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}
+                        placeholder="出費額を入力してください。"
                         className={`w-full h-10 border ${errors.amount ? 'border-red-500' : 'border-border-default'} rounded-lg mt-1 px-2 mb-1`}
                     />
                     {errors.amount && <p className='text-red-500 text-xs'>{errors.amount}</p>}
@@ -90,9 +91,12 @@ const EditModal: React.FC<EditModalProps> = ({ setShowEditModal, updateRecord, r
                         <input
                             value={cycleNumber}
                             onChange={(e) => setCycleNumber(e.target.value)}
+                            placeholder="サイクル数を入力してください。"
                             className={`w-full h-10 border ${errors.cycleNumber ? 'border-red-500' : 'border-border-default'} rounded-lg mt-1 px-2 mb-1`}
                         />
+                        <label htmlFor="cycle-select" className="sr-only">サイクルを選択してください</label>
                         <select
+                            id="cycle-select"
                             value={cycle}
                             onChange={(e) => setCycle(e.target.value as Cycle)}
                             className={`w-full h-10 border border-border-default rounded-lg mt-1 px-2 mb-1`}
@@ -110,7 +114,7 @@ const EditModal: React.FC<EditModalProps> = ({ setShowEditModal, updateRecord, r
                         className={`w-full h-10 bg-primary text-white rounded-lg mt-4`}
                         onClick={handleSubmit}
                     >
-                        更新
+                        登録
                     </button>
                 </div>
             </div>
@@ -118,4 +122,4 @@ const EditModal: React.FC<EditModalProps> = ({ setShowEditModal, updateRecord, r
     );
 };
 
-export default EditModal;
+export default RegisterModal;
